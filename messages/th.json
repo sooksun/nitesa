@@ -1,0 +1,103 @@
+{
+  "common": {
+    "dashboard": "แดชบอร์ด",
+    "overview": "ภาพรวม",
+    "totalSchools": "โรงเรียนทั้งหมด",
+    "totalSupervisions": "การนิเทศทั้งหมด",
+    "save": "บันทึก",
+    "cancel": "ยกเลิก",
+    "edit": "แก้ไข",
+    "delete": "ลบ",
+    "view": "ดู",
+    "back": "กลับ",
+    "submit": "ส่ง",
+    "loading": "กำลังโหลด...",
+    "noData": "ไม่มีข้อมูล"
+  },
+  "dashboard": {
+    "title": "แดชบอร์ด",
+    "admin": {
+      "title": "แดชบอร์ดผู้ดูแลระบบ",
+      "description": "ภาพรวมระบบนิเทศการศึกษาทั้งเขต"
+    },
+    "supervisor": {
+      "title": "แดชบอร์ดศึกษานิเทศก์",
+      "description": "ภาพรวมโรงเรียนที่รับผิดชอบ"
+    },
+    "school": {
+      "title": "แดชบอร์ดโรงเรียน",
+      "description": "ข้อมูลโรงเรียน"
+    },
+    "executive": {
+      "title": "แดชบอร์ดผู้บริหารระดับสูง",
+      "description": "ภาพรวมระบบนิเทศการศึกษาทั้งเขต"
+    }
+  },
+  "supervision": {
+    "create": "สร้างการนิเทศ",
+    "edit": "แก้ไขการนิเทศ",
+    "view": "รายละเอียดการนิเทศ",
+    "list": "การนิเทศ",
+    "date": "วันที่นิเทศ",
+    "type": "ประเภทการนิเทศ",
+    "summary": "สรุปผลการนิเทศ",
+    "suggestions": "ข้อเสนอแนะ",
+    "status": "สถานะ",
+    "indicators": "ตัวชี้วัด",
+    "addIndicator": "เพิ่มตัวชี้วัด",
+    "removeIndicator": "ลบตัวชี้วัด",
+    "acknowledge": "ตอบรับผลการนิเทศ",
+    "acknowledged": "ตอบรับแล้ว"
+  },
+  "school": {
+    "list": "จัดการโรงเรียน",
+    "detail": "รายละเอียดโรงเรียน",
+    "name": "ชื่อโรงเรียน",
+    "code": "รหัสโรงเรียน",
+    "district": "อำเภอ",
+    "address": "ที่อยู่",
+    "principal": "ผู้อำนวยการ"
+  },
+  "user": {
+    "list": "จัดการผู้ใช้งาน",
+    "name": "ชื่อ",
+    "email": "อีเมล",
+    "role": "บทบาท"
+  },
+  "report": {
+    "district": "รายงานภาพรวมเขต",
+    "export": "Export PDF",
+    "trend": "แนวโน้มการนิเทศ",
+    "indicators": "ตัวชี้วัด"
+  },
+  "settings": {
+    "title": "ตั้งค่าระบบ",
+    "supervisionTypes": "ประเภทการนิเทศ",
+    "indicatorCriteria": "เกณฑ์การประเมินตัวชี้วัด"
+  },
+  "auth": {
+    "login": "เข้าสู่ระบบ",
+    "logout": "ออกจากระบบ",
+    "loginWithGoogle": "เข้าสู่ระบบด้วย Google"
+  },
+  "role": {
+    "ADMIN": "ผู้ดูแลระบบ",
+    "SUPERVISOR": "ศึกษานิเทศก์",
+    "SCHOOL": "โรงเรียน",
+    "EXECUTIVE": "ผู้บริหารระดับสูง"
+  },
+  "status": {
+    "DRAFT": "ร่าง",
+    "SUBMITTED": "ส่งแล้ว",
+    "APPROVED": "อนุมัติแล้ว",
+    "PUBLISHED": "เผยแพร่แล้ว",
+    "NEEDS_IMPROVEMENT": "ต้องปรับปรุง"
+  },
+  "indicatorLevel": {
+    "EXCELLENT": "ดีเยี่ยม",
+    "GOOD": "ดี",
+    "FAIR": "พอใช้",
+    "NEEDS_WORK": "ต้องพัฒนา"
+  }
+}
+

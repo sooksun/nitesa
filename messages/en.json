@@ -1,0 +1,103 @@
+{
+  "common": {
+    "dashboard": "Dashboard",
+    "overview": "Overview",
+    "totalSchools": "Total Schools",
+    "totalSupervisions": "Total Supervisions",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "view": "View",
+    "back": "Back",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "noData": "No data"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "admin": {
+      "title": "Admin Dashboard",
+      "description": "Overview of the entire education supervision system"
+    },
+    "supervisor": {
+      "title": "Supervisor Dashboard",
+      "description": "Overview of assigned schools"
+    },
+    "school": {
+      "title": "School Dashboard",
+      "description": "School information"
+    },
+    "executive": {
+      "title": "Executive Dashboard",
+      "description": "Overview of the entire education supervision system"
+    }
+  },
+  "supervision": {
+    "create": "Create Supervision",
+    "edit": "Edit Supervision",
+    "view": "Supervision Details",
+    "list": "Supervisions",
+    "date": "Supervision Date",
+    "type": "Supervision Type",
+    "summary": "Summary",
+    "suggestions": "Suggestions",
+    "status": "Status",
+    "indicators": "Indicators",
+    "addIndicator": "Add Indicator",
+    "removeIndicator": "Remove Indicator",
+    "acknowledge": "Acknowledge Supervision",
+    "acknowledged": "Acknowledged"
+  },
+  "school": {
+    "list": "Manage Schools",
+    "detail": "School Details",
+    "name": "School Name",
+    "code": "School Code",
+    "district": "District",
+    "address": "Address",
+    "principal": "Principal"
+  },
+  "user": {
+    "list": "Manage Users",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role"
+  },
+  "report": {
+    "district": "District Report",
+    "export": "Export PDF",
+    "trend": "Supervision Trend",
+    "indicators": "Indicators"
+  },
+  "settings": {
+    "title": "System Settings",
+    "supervisionTypes": "Supervision Types",
+    "indicatorCriteria": "Indicator Evaluation Criteria"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "loginWithGoogle": "Login with Google"
+  },
+  "role": {
+    "ADMIN": "Administrator",
+    "SUPERVISOR": "Supervisor",
+    "SCHOOL": "School",
+    "EXECUTIVE": "Executive"
+  },
+  "status": {
+    "DRAFT": "Draft",
+    "SUBMITTED": "Submitted",
+    "APPROVED": "Approved",
+    "PUBLISHED": "Published",
+    "NEEDS_IMPROVEMENT": "Needs Improvement"
+  },
+  "indicatorLevel": {
+    "EXCELLENT": "Excellent",
+    "GOOD": "Good",
+    "FAIR": "Fair",
+    "NEEDS_WORK": "Needs Work"
+  }
+}
+

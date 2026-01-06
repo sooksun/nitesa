@@ -1,0 +1,233 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  SUPERVISOR
+  SCHOOL
+  EXECUTIVE
+}
+
+enum SupervisionStatus {
+  DRAFT
+  SUBMITTED
+  APPROVED
+  PUBLISHED
+  NEEDS_IMPROVEMENT
+}
+
+enum IndicatorLevel {
+  EXCELLENT     // ดีเยี่ยม
+  GOOD          // ดี
+  FAIR          // พอใช้
+  NEEDS_WORK    // ต้องพัฒนา
+}
+
+model User {
+  id              String         @id @default(uuid())
+  email           String         @unique
+  name            String
+  role            Role
+  image           String?
+  googleId        String?        @unique
+  password        String?        // Hashed password for credentials login
+  assignedSchools School[]       @relation("SupervisorSchools")
+  supervisions    Supervision[]
+  logs            ActivityLog[]
+  improvements    Improvement[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@index([email])
+  @@index([role])
+}
+
+model NetworkGroup {
+  id          String   @id @default(uuid())
+  code        String   @unique // รหัสกลุ่มเครือข่าย เช่น "NG001"
+  name        String   // ชื่อกลุ่มเครือข่าย เช่น "กลุ่มเครือข่ายที่ 1"
+  description String?  @db.Text
+  schools     School[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([code])
+}
+
+model Policy {
+  id                    String        @id @default(uuid())
+  type                  PolicyType    // ประเภทนโยบาย
+  code                  String        // รหัสนโยบาย เช่น "POL001"
+  title                 String        // ชื่อนโยบาย
+  description           String?       @db.Text // รายละเอียดนโยบาย
+  isActive              Boolean       @default(true)
+  ministerSupervisions  Supervision[] @relation("MinisterPolicy")
+  obecSupervisions      Supervision[] @relation("ObecPolicy")
+  areaSupervisions      Supervision[] @relation("AreaPolicy")
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+
+  @@unique([type, code])
+  @@index([type])
+  @@index([code])
+}
+
+enum PolicyType {
+  NAT_VALUES_LOYALTY           // คุณธรรม จริยธรรม ความเป็นไทย และความภาคภูมิใจในความเป็นไทย
+  CIVIC_HISTORY_GEO             // หน้าที่พลเมือง ประวัติศาสตร์ และภูมิศาสตร์
+  EDU_INNOV_TECH                // การศึกษาเพื่อการพัฒนาทักษะในศตวรรษที่ 21 และนวัตกรรมเทคโนโลยี
+  READING_CULTURE              // การส่งเสริมการอ่านและวัฒนธรรมการอ่าน
+  STUDENT_DEVELOPMENT           // การพัฒนาผู้เรียนให้มีคุณภาพตามมาตรฐานการศึกษา
+  SPECIAL_NEEDS_EDU            // การจัดการศึกษาสำหรับผู้เรียนที่มีความต้องการพิเศษ
+  PERSONAL_EXCELLENCE          // การส่งเสริมความเป็นเลิศของผู้เรียน
+  SCHOOL_SAFETY                // ความปลอดภัยในสถานศึกษา
+  EDU_EQUITY_ACCESS            // ความเสมอภาคทางการศึกษาและการเข้าถึงการศึกษา
+  TEACHER_UPSKILL              // การพัฒนาครูและบุคลากรทางการศึกษา
+  PERSONALIZED_ASSESSMENT       // การประเมินผลการเรียนรู้ที่หลากหลายและเหมาะสมกับผู้เรียน
+  SMART_GOVERNANCE              // การบริหารจัดการสถานศึกษาอย่างมีประสิทธิภาพ
+  REDUCE_TEACHER_WORKLOAD      // การลดภาระงานครู
+  TEACHER_WELFARE               // สวัสดิการครูและบุคลากรทางการศึกษา
+  MORAL_QUALITY_LEARNING        // คุณภาพการเรียนรู้ที่เน้นคุณธรรม
+}
+
+model School {
+  id              String         @id @default(uuid())
+  code            String         @unique
+  name            String
+  province        String?        // จังหวัด
+  district        String
+  subDistrict     String?
+  address         String?
+  phone           String?
+  email           String?
+  principalName   String?
+  studentCount    Int?
+  teacherCount    Int?
+  networkGroupId  String?        // Foreign key to NetworkGroup
+  networkGroup    NetworkGroup?  @relation(fields: [networkGroupId], references: [id], onDelete: SetNull)
+  supervisors     User[]         @relation("SupervisorSchools")
+  supervisions    Supervision[]
+  improvements    Improvement[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@index([code])
+  @@index([province])
+  @@index([district])
+  @@index([networkGroupId])
+}
+
+model Supervision {
+  id                String              @id @default(uuid())
+  schoolId          String
+  userId            String
+  type              String              // ประเภทการนิเทศ
+  date              DateTime
+  academicYear      String?             // ปีการศึกษา (เช่น 2567)
+  ministerPolicyId  String?             // Foreign key to Policy (MINISTER)
+  ministerPolicy    Policy?             @relation("MinisterPolicy", fields: [ministerPolicyId], references: [id], onDelete: SetNull)
+  obecPolicyId      String?             // Foreign key to Policy (OBEC)
+  obecPolicy        Policy?             @relation("ObecPolicy", fields: [obecPolicyId], references: [id], onDelete: SetNull)
+  areaPolicyId      String?             // Foreign key to Policy (AREA)
+  areaPolicy        Policy?             @relation("AreaPolicy", fields: [areaPolicyId], references: [id], onDelete: SetNull)
+  summary           String              @db.Text
+  suggestions       String              @db.Text
+  status            SupervisionStatus   @default(DRAFT)
+  attachments       Attachment[]
+  indicators        Indicator[]
+  acknowledgement   Acknowledgement?
+  school            School              @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  user              User                @relation(fields: [userId], references: [id])
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  @@index([schoolId])
+  @@index([userId])
+  @@index([date])
+  @@index([status])
+  @@index([academicYear])
+  @@index([ministerPolicyId])
+  @@index([obecPolicyId])
+  @@index([areaPolicyId])
+}
+
+model Indicator {
+  id              String         @id @default(uuid())
+  supervisionId   String
+  name            String         // ชื่อตัวชี้วัด
+  level           IndicatorLevel
+  comment         String?        @db.Text
+  supervision     Supervision    @relation(fields: [supervisionId], references: [id], onDelete: Cascade)
+
+  @@index([supervisionId])
+}
+
+model Attachment {
+  id              String      @id @default(uuid())
+  supervisionId   String
+  filename        String
+  fileUrl         String
+  fileType        String
+  fileSize        Int
+  supervision     Supervision @relation(fields: [supervisionId], references: [id], onDelete: Cascade)
+  uploadedAt      DateTime    @default(now())
+
+  @@index([supervisionId])
+}
+
+model Acknowledgement {
+  id              String      @id @default(uuid())
+  supervisionId   String      @unique
+  acknowledgedBy  String
+  acknowledgedAt  DateTime
+  comment         String?     @db.Text
+  supervision     Supervision @relation(fields: [supervisionId], references: [id], onDelete: Cascade)
+}
+
+model Improvement {
+  id              String   @id @default(uuid())
+  schoolId        String
+  userId          String
+  title           String
+  description     String   @db.Text
+  fileUrl         String?
+  status          String   @default("pending") // pending, approved, completed
+  school          School   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  user            User     @relation(fields: [userId], references: [id])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([schoolId])
+  @@index([status])
+}
+
+model ActivityLog {
+  id          String   @id @default(uuid())
+  userId      String
+  action      String
+  entity      String?  // supervisions, schools, users
+  entityId    String?
+  details     Json?
+  ipAddress   String?
+  userAgent   String?
+  user        User     @relation(fields: [userId], references: [id])
+  timestamp   DateTime @default(now())
+
+  @@index([userId])
+  @@index([timestamp])
+  @@index([entity])
+}
+
+model SystemSetting {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  value       Json
+  description String?
+  updatedAt   DateTime @updatedAt
+}
