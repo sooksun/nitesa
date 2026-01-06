@@ -8,6 +8,7 @@ import bcrypt from 'bcryptjs'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   secret: process.env.NEXTAUTH_SECRET || 'fallback-secret-key-change-in-production',
+  trustHost: true, // Trust all hosts in production
   adapter: PrismaAdapter(prisma) as any,
   providers: [
     Google({
