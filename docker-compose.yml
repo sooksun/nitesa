@@ -1,4 +1,4 @@
-version: '3.8'
+# Removed version (obsolete in Docker Compose v2)
 
 services:
   # MySQL Database
@@ -12,7 +12,7 @@ services:
       MYSQL_USER: ${MYSQL_USER:-nitesa_user}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-nitesa_password}
     ports:
-      - "3306:3306"
+      - "3307:3306"  # Changed to 3307 to avoid conflict with existing MySQL
     volumes:
       - mysql_data:/var/lib/mysql
       - ./setup-mysql.sql:/docker-entrypoint-initdb.d/init.sql:ro
