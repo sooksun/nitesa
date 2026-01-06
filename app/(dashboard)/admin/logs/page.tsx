@@ -14,6 +14,9 @@ import {
 import { formatDateTimeToBE } from '@/lib/date-utils'
 import { Pagination } from '@/components/ui/pagination'
 
+// Force dynamic rendering to avoid build-time database access
+export const dynamic = 'force-dynamic'
+
 const ITEMS_PER_PAGE = 20
 
 export default async function AdminLogsPage({

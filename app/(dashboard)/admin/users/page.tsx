@@ -13,6 +13,9 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
+
+// Force dynamic rendering to avoid build-time database access
+export const dynamic = 'force-dynamic'
 import Link from 'next/link'
 import { Pagination } from '@/components/ui/pagination'
 

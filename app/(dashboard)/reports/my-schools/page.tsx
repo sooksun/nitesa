@@ -7,6 +7,9 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { SupervisionTrendChart } from '@/components/charts/supervision-trend-chart'
 
+// Force dynamic rendering to avoid build-time database access
+export const dynamic = 'force-dynamic'
+
 export default async function MySchoolsReportPage() {
   const session = await auth()
   if (!session?.user) {

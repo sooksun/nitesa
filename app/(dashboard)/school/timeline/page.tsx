@@ -8,6 +8,9 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { formatDateToBEWithMonth } from '@/lib/date-utils'
 
+// Force dynamic rendering to avoid build-time database access
+export const dynamic = 'force-dynamic'
+
 export default async function SchoolTimelinePage() {
   const session = await auth()
   if (!session?.user) {

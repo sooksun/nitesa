@@ -6,6 +6,9 @@ import { formatDateToBE } from '@/lib/date-utils'
 import { School, FileText, Users, BarChart3 } from 'lucide-react'
 import { AnalyticsCharts } from '@/components/dashboard/analytics-charts'
 
+// Force dynamic rendering to avoid build-time database access
+export const dynamic = 'force-dynamic'
+
 export default async function AdminDashboard() {
   const [totalSchools, totalSupervisions, totalUsers, recentSupervisions] = await Promise.all([
     prisma.school.count(),

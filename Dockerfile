@@ -21,7 +21,9 @@ COPY . .
 RUN npx prisma generate
 
 # Build Next.js application
+# Use dummy DATABASE_URL for build if not provided (pages with dynamic rendering won't need it)
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV DATABASE_URL=${DATABASE_URL:-mysql://dummy:dummy@localhost:3306/dummy?schema=public}
 RUN npm run build
 
 # Stage 3: Runner

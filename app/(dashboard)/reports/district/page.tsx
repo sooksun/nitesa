@@ -7,6 +7,9 @@ import { SupervisionTrendChart } from '@/components/charts/supervision-trend-cha
 import { IndicatorHeatmap } from '@/components/charts/indicator-heatmap'
 import { Button } from '@/components/ui/button'
 
+// Force dynamic rendering to avoid build-time database access
+export const dynamic = 'force-dynamic'
+
 export default async function DistrictReportPage() {
   const session = await auth()
   if (!session?.user) {
