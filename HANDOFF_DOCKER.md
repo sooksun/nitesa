@@ -80,6 +80,9 @@ cd nitesa
 
 ```bash
 cd /path/to/nitesa
+# Copy จาก template
+cp env.example .env
+# หรือสร้างใหม่
 nano .env
 ```
 
